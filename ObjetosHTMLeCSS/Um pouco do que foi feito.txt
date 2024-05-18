@@ -1,0 +1,50 @@
+Entrar na pasta BackEnd.
+
+ npm init -y
+
+ yarn add express nodemon mysql cors
+ 
+ - Express para criar a API
+ - Nodemon para salvar e executar automaticamente, para não precisar inicializar novamente.
+ - MySQL que será o BD utilizado
+ - CORS para não dar conflito no BD por estar sendo utilizado localmente
+
+depois de devidamente instalado, foi criada uma pasta "node modules".
+No arquivo package.json, foi feita a seguinte alteração:
+
+de:
+
+ "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+
+para:
+
+  "start": {
+     "nodemon index.js"
+  }
+
+ainda no arquivo package.json, acrescentar (depois de "main": "index.js") a linha:
+  "type": "module",
+
+depois disso, o arquivo "index.js" deverá ser criado na pasta backEnd.
+
+
+
+
+Na pasta FrontEnd, criar o projeto em React.
+
+ npx create-react-app ./
+
+Após a criação do projeto, instalaremos alguma bibliotecas.
+
+  yarn add styled-components axios react-icons react-toastify
+
+  - styled-components para fazer a estilização da página
+  - axios para consumir a api do backend
+  - react-icons para inserir os ícones de lixeira e outros
+  - react-toastify para far feedback do que está sendo feito.
+
+
+Para fazer funcionar o FrontEnd e o BackEnd, precisa rodar o BackEnd. Para isso, abrir o terminal, rodar a pasta BackEnd e rodar:
+  yarn start
