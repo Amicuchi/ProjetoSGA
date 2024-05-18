@@ -77,7 +77,7 @@ export const updateUser = (req, res) => {
 	});
 };
 
-export const deleteuser = (req, res) => {
+export const deleteUser = (req, res) => {
 	const q = "DELETE FROM usuarios EHERE `CPF` = ?";
 
 	db.query(q, [req.params.CPF], (err) => {
