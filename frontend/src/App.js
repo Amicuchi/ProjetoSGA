@@ -1,17 +1,22 @@
 import React from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import Sidebar from './components/Sidebar.js';
 import Form from './components/Form.js'
 import Grid from './components/Grid.js';
+import Login from './components/Login.js';
+import Footer from './components/Footer.js';
 import { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
+// import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import GlobalStyle from './styles/global';
 
 const Container = styled.div`
   width: 100%;
-  max-width: 800px;
+  max-width: 1200px;
   margin-top: 20px;
+  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -42,13 +47,18 @@ function App() {
     <>
       <Container>
         <Title>SGA - Sistema de Gerenciamento de Academias</Title>
-        <Form />
-        <Grid users={users} />
-      </Container>
+        <Sidebar />
 
-      <ToastContainer autoClose={3000} position="bottom-left" />
-      
-      <GlobalStyle />
+        <Container>
+          <Login />
+          <Form />
+          <Grid users={users} />
+        </Container>
+
+        <ToastContainer autoClose={3000} position="bottom-left" />
+        <Footer />
+        <GlobalStyle />
+      </Container>
 
     </>
   );

@@ -28,13 +28,13 @@ const InputArea = styled.div`
     background-color: #f0f0f0;
     margin: 10px 0;
     display: grid;
-    grid-template-columns: 15% 85%;
+    grid-template-columns: 8% 92%;
     position: relative;
 `;
 
 const InputAreaEndereco = styled.div`
     width: 100%;
-    max-width: 750px;
+    max-width: 780px;
     // padding: 0 0.4rem;
     background-color: #f0f0f0;
     border: 1px solid #bbb;
@@ -53,12 +53,14 @@ const InputAreaEndereco = styled.div`
     gap: 10px;
 `;
 
-const Icone = styled.i`
+const Icone = styled(FontAwesomeIcon)`
     text-align: center;
-    line-height: 55px;
+    align-self: center;
+    line-height: 3.5rem;
     color: #acacac;
     transition: 0.5s;
     font-size: 1.1rem;
+    margin-left: 10px;
 `;
 
 const Input = styled.input`
@@ -147,28 +149,29 @@ const Form = ({onEdit}) => {
 
     return(
         <FormContainer>
+            <H2>Cadastro de Usuários</H2>
             <InputArea>
-                <FontAwesomeIcon icon={faPassport} />    
+                <Icone icon={faPassport} />    
                 <Input name="CPF" placeholder='CPF'></Input>
             </InputArea>
 
             <InputArea>
-                <FontAwesomeIcon icon={faPassport} />
+                <Icone icon={faPassport} />
                 <Input name="tipoUsuario" placeholder='Tipo de Usuário'></Input>
             </InputArea>
 
             <InputArea>
-                <FontAwesomeIcon icon={faUser} />
+                <Icone icon={faUser} />
                 <Input name="nome" placeholder='Nome completo'></Input>
             </InputArea>
 
             <InputArea>
-                <FontAwesomeIcon icon={faEnvelope} />
+                <Icone icon={faEnvelope} />
                 <Input name="email" type="email" placeholder='E-mail:'></Input>
             </InputArea>
 
             <InputArea>
-                <FontAwesomeIcon icon={faPhone} />
+                <Icone icon={faPhone} />
                 <Input name="telefone" placeholder='Telefone:'></Input>
             </InputArea>
 
