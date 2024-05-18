@@ -2,6 +2,19 @@ MIT License
 
 Copyright (c) 2024 Anderson Amicuchi Machado
 
+[PT-BR]
+
+Se você quer incluir a criação do esquema (schema) junto com os dados, então sim, você deve selecionar a opção "Include Create Schema". Isso garantirá que o arquivo de exportação inclua todos os comandos necessários para recriar não apenas os dados, mas também a estrutura do banco de dados, incluindo tabelas, índices, chaves estrangeiras e outros objetos do esquema.
+
+Se você planeja importar o banco de dados em outro servidor onde o esquema ainda não existe, selecionar essa opção será útil, pois permitirá que você recrie a estrutura completa do banco de dados junto com os dados.
+
+Por outro lado, se você já tiver a estrutura do banco de dados criada no servidor de destino e apenas deseja importar os dados, você pode optar por não incluir a criação do esquema. Nesse caso, você precisará garantir que a estrutura do banco de dados no servidor de destino corresponda à estrutura do banco de dados no servidor de origem antes de importar os dados.
+
+
+********************************************************
+
+[EN]
+
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
