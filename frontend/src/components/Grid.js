@@ -37,7 +37,26 @@ export const Td = styled.td`
     width: ${(props) => (props.width ? props.width : "auto")}
 `;
 
-const Grid = ({ users }) => {
+const Grid = ({ users, setUsers, setOnEdit }) => {
+
+    const handleDelete = async (CPF) => {
+
+        await axios
+            .delete("http://localhost:8800/" + CPF)
+            .then(({data}) => {
+                const newArray = users.filter((user) => user.CPF !== CPF);
+                
+                setUsers(newArray);
+                toast.success(data);
+            })
+            .catch(({data}) => toast.error(data));
+        setOnEdit(null);
+    };
+    
+    const handleEdit = (item) => {
+        setOnEdit(item);
+    };
+
     return(
         <>
         <Table>
@@ -76,8 +95,8 @@ const Grid = ({ users }) => {
                         <Td onlyWeb>{item.enderecoBairro}</Td>
                         <Td onlyWeb>{item.enderecoCidade}</Td>
                         <Td onlyWeb>{item.enderecoEstado}</Td>
-                        <Td alignCenter> <FontAwesomeIcon icon={faEdit} color="blue"/>  </Td>
-                        <Td alignCenter> <FontAwesomeIcon icon={faTrash} color="red" /> </Td>
+                        <Td alignCenter> <FontAwesomeIcon icon={faEdit} color="blue" onClick={() => handleEdit(item)}/>  </Td>
+                        <Td alignCenter> <FontAwesomeIcon icon={faTrash} color="red" onClick={() => handleDelete(item.CPF)} /> </Td>
                     </Tr>
                 ))}
             </Tbody>

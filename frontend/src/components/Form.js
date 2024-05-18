@@ -1,8 +1,11 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPassport, faPhone, faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+
 
 library.add(faPassport);
 
@@ -144,11 +147,82 @@ const Button = styled.button`
     }
 `;
 
-const Form = ({onEdit}) => {
+const Form = ({ getUsers, onEdit, setOnEdit }) => {
     const ref = useRef();
 
+    useEffect(() => {
+        if (onEdit){
+            const user = ref.current;
+
+            user.CPF.value = onEdit.CPF;
+            user.usuarioNome.value = onEdit.usuarioNome;
+            user.usuarioEmail.value = onEdit.usuarioEmail;
+            user.usuarioTelefone.value = onEdit.usuarioTelefone;
+            user.cep.value = onEdit.cep;
+            user.log.value = onEdit.log;
+            user.LogName.value = onEdit.LogName;
+            user.NumCasa.value = onEdit.NumCasa;
+            user.Compl.value = onEdit.Compl;
+            user.Bairro.value = onEdit.Bairro;
+            user.Cidade.value = onEdit.Cidade;
+            user.UF.value = onEdit.UF;
+        }
+    }, [onEdit]);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        
+        const user = ref.current;
+
+        if (
+            !user.CPF.value||
+            !user.usuarioNome.value ||
+            !user.usuarioEmail.value ||
+            !user.usuarioTelefone.value
+        ) {
+            return toast.warn("Preencha todos os campos")
+        }
+
+        if (onEdit) {
+            await axios
+                .put("http://localhost:8800" + onEdit.CPF, {
+                    CPF: user.CPF.value,
+                    usuarioNome: user.usuarioNome.value,
+                    usuarioEmail: user.usuarioEmail.value,
+                    usuarioTelefone: user.usuarioTelefone.value,
+                })
+                .then(({ data }) => toast.success(data))
+                .catch(({data}) => toast.error(data));
+        } else {
+            await axios
+                .post("http://localhost:8800", {
+                    CPF: user.CPF.value,
+                    usuarioNome: user.usuarioNome.value,
+                    usuarioEmail: user.usuarioEmail.value,
+                    usuarioTelefone: user.usuarioTelefone.value,
+                })
+                .then(({ data }) => toast.success(data))
+                .catch(({data}) => toast.error(data));
+        }
+        user.CPF.value = "";
+        user.usuarioNome.value = "";
+        user.usuarioEmail.value = "";
+        user.usuarioTelefone.value = "";
+        user.cep.value = "";
+        user.log.value = "";
+        user.LogName.value = "";
+        user.NumCasa.value = "";
+        user.Compl.value = "";
+        user.Bairro.value = "";
+        user.Cidade.value = "";
+        user.UF.value = "";
+
+        setOnEdit(null);
+        getUsers();
+    };
+
     return(
-        <FormContainer>
+        <FormContainer ref={ref} onSubmit={handleSubmit}>
             <H2>Cadastro de Usuários</H2>
             <InputArea>
                 <Icone icon={faPassport} />    
