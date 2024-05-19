@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import Sidebar from './components/Sidebar.js';
 import Form from './components/Form.js'
 import Grid from './components/Grid.js';
-import Login from './components/Login.js';
 import Footer from './components/Footer.js';
+import Login from './components/login.js';
 import { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -31,7 +31,7 @@ function App() {
 
   const getUsers = async () => {
     try {
-      const res = await axios.get("http://localhost:8800");
+      const res = await axios.get("http://localhost:8800/");
       setUsers(res.data.sort((a, b) => (a.nome > b.nome ? 1 : -1)));
     } catch (error) {
       toast.error(error);

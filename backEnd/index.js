@@ -9,4 +9,9 @@ app.use(cors());
 
 app.use("/", userRoutes);
 
-app.listen(8800);
+const port = 8800;
+
+// app.listen(8800);
+app.listen(port, () => {
+    console.log(`O servidor está rodando na porta ${port}`);
+});

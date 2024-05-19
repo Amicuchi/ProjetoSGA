@@ -203,14 +203,17 @@ const Form = ({ getUsers, onEdit, setOnEdit }) => {
                 await axios.put(`http://localhost:8800/${onEdit.CPF}`, payload);
                 toast.success("Usuário atualizado com sucesso!");
             } else {
-                await axios.post("http://localhost:8800", payload);
+                await axios.post("http://localhost:8800/", payload);
                 toast.success("Usuário cadastrado com sucesso!");
             }
     
             // Limpar o formulário
             ref.current.reset();
+            
             setOnEdit(null);
+            
             getUsers();
+
         } catch (error) {
             toast.error("Erro ao salvar os dados do usuário.");
         }

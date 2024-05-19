@@ -11,4 +11,4 @@ router.put("/:CPF", updateUser);
 
 router.delete("/:CPF", deleteUser);
 
-export default router
+export default router;
