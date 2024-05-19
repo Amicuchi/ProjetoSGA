@@ -8,7 +8,6 @@ import Login from './components/Login.js';
 import Footer from './components/Footer.js';
 import { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
-// import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import GlobalStyle from './styles/global';
 

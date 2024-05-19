@@ -67,16 +67,16 @@ const Grid = ({ users, setUsers, setOnEdit }) => {
                     <Th width="15%">Nome</Th>
                     <Th width="15%">E-mail</Th>
                     <Th width="5%">Telefone</Th>
-                    <Th width="4%" onlyWeb>CEP</Th>
-                    <Th width="2.5%" onlyWeb>Logradouro</Th>
-                    <Th width="10%" onlyWeb>Nome do Logradouro</Th>
-                    <Th width="4%" onlyWeb>Número</Th>
-                    <Th width="10%" onlyWeb>Complemento</Th>
-                    <Th width="10%" onlyWeb>Bairro</Th>
-                    <Th width="10%" onlyWeb>Cidade</Th>
-                    <Th width="2.5%" onlyWeb>UF</Th>
-                    <Th width="1.5%" alignCenter></Th>
-                    <Th width="1.5%" alignCenter></Th>
+                    <Th width="4%">CEP</Th>
+                    <Th width="2.5%">Logradouro</Th>
+                    <Th width="10%">Nome do Logradouro</Th>
+                    <Th width="4%">Número</Th>
+                    <Th width="10%">Complemento</Th>
+                    <Th width="10%">Bairro</Th>
+                    <Th width="10%">Cidade</Th>
+                    <Th width="2.5%">UF</Th>
+                    <Th width="1.5%" aligncenter="true"></Th>
+                    <Th width="1.5%" aligncenter="true"></Th>
                 </Tr>
             </Thead>
             <Tbody>
@@ -87,16 +87,16 @@ const Grid = ({ users, setUsers, setOnEdit }) => {
                         <Td>{item.UsuarioNome}</Td>
                         <Td>{item.UsuarioEmail}</Td>
                         <Td>{item.UsuarioTelefone}</Td>
-                        <Td onlyWeb>{item.enderecoCEP}</Td>
-                        <Td onlyWeb>{item.enderecoLogradouro}</Td>
-                        <Td onlyWeb>{item.enderecoNomeLogradouro}</Td>
-                        <Td onlyWeb>{item.enderecoNumero}</Td>
-                        <Td onlyWeb>{item.enderecoComplemento}</Td>
-                        <Td onlyWeb>{item.enderecoBairro}</Td>
-                        <Td onlyWeb>{item.enderecoCidade}</Td>
-                        <Td onlyWeb>{item.enderecoEstado}</Td>
-                        <Td alignCenter> <FontAwesomeIcon icon={faEdit} color="blue" onClick={() => handleEdit(item)}/>  </Td>
-                        <Td alignCenter> <FontAwesomeIcon icon={faTrash} color="red" onClick={() => handleDelete(item.CPF)} /> </Td>
+                        <Td>{item.enderecoCEP}</Td>
+                        <Td>{item.enderecoLogradouro}</Td>
+                        <Td>{item.enderecoNomeLogradouro}</Td>
+                        <Td>{item.enderecoNumero}</Td>
+                        <Td>{item.enderecoComplemento}</Td>
+                        <Td>{item.enderecoBairro}</Td>
+                        <Td>{item.enderecoCidade}</Td>
+                        <Td>{item.enderecoEstado}</Td>
+                        <Td aligncenter="true"> <FontAwesomeIcon icon={faEdit} color="blue" onClick={() => handleEdit(item)}/>  </Td>
+                        <Td aligncenter="true"> <FontAwesomeIcon icon={faTrash} color="red" onClick={() => handleDelete(item.CPF)} /> </Td>
                     </Tr>
                 ))}
             </Tbody>

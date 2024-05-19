@@ -173,47 +173,52 @@ const Form = ({ getUsers, onEdit, setOnEdit }) => {
         e.preventDefault();
         
         const user = ref.current;
-    
+
         if (
             !user.CPF.value ||
             !user.UsuarioNome.value ||
             !user.UsuarioEmail.value ||
             !user.UsuarioTelefone.value
         ) {
-            return toast.warn("Preencha todos os campos");
+            return toast.warn("Preencha todos os campos")
         }
-    
-        const payload = {
-            CPF: user.CPF.value,
-            UsuarioNome: user.UsuarioNome.value,
-            UsuarioEmail: user.UsuarioEmail.value,
-            UsuarioTelefone: user.UsuarioTelefone.value,
-            cep: user.cep.value,
-            Log: user.Log.value,
-            LogName: user.LogName.value,
-            NumCasa: user.NumCasa.value,
-            Compl: user.Compl.value,
-            Bairro: user.Bairro.value,
-            Cidade: user.Cidade.value,
-            UF: user.UF.value,
-        };
-    
-        try {
-            if (onEdit) {
-                await axios.put(`http://localhost:8800/${onEdit.CPF}`, payload);
-                toast.success("Usuário atualizado com sucesso!");
-            } else {
-                await axios.post("http://localhost:8800", payload);
-                toast.success("Usuário cadastrado com sucesso!");
-            }
-    
-            // Limpar o formulário
-            ref.current.reset();
-            setOnEdit(null);
-            getUsers();
-        } catch (error) {
-            toast.error("Erro ao salvar os dados do usuário.");
+
+        if (onEdit) {
+            await axios
+                .put("http://localhost:8800" + onEdit.CPF, {
+                    CPF: user.CPF.value,
+                    UsuarioNome: user.UsuarioNome.value,
+                    UsuarioEmail: user.UsuarioEmail.value,
+                    UsuarioTelefone: user.UsuarioTelefone.value,
+                })
+                .then(({ data }) => toast.success( data ))
+                .catch(({ data }) => toast.error( data ));
+        } else {
+            await axios
+                .post("http://localhost:8800", {
+                    CPF: user.CPF.value,
+                    UsuarioNome: user.UsuarioNome.value,
+                    UsuarioEmail: user.UsuarioEmail.value,
+                    UsuarioTelefone: user.UsuarioTelefone.value,
+                })
+                .then(({ data }) => toast.success( data ))
+                .catch(({ data }) => toast.error( data ));
         }
+        user.CPF.value = "";
+        user.UsuarioNome.value = "";
+        user.UsuarioEmail.value = "";
+        user.UsuarioTelefone.value = "";
+        user.cep.value = "";
+        user.Log.value = "";
+        user.LogName.value = "";
+        user.NumCasa.value = "";
+        user.Compl.value = "";
+        user.Bairro.value = "";
+        user.Cidade.value = "";
+        user.UF.value = "";
+
+        setOnEdit(null);
+        getUsers();
     };
 
     return(
