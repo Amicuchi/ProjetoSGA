@@ -5,7 +5,7 @@ import Sidebar from './components/Sidebar.js';
 import Form from './components/Form.js'
 import Grid from './components/Grid.js';
 import Footer from './components/Footer.js';
-import Login from './components/login.js';
+import Login from './components/Login.js';
 import { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
