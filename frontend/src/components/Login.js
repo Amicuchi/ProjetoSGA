@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
-
+import { useState } from 'react';
 
 const Container = styled.div`
     display: grid;
@@ -110,19 +110,44 @@ const ButtonContainer = styled(InputArea)`
 
 
 const Login = () => {
+
+    // Estados para armazenar as entradas do usuário
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+
+    // Função que é chamada quando o formulário é enviado
+    const handleSubmit = (event) => {
+        // Impede que a página seja recarregada
+        event.preventDefault();
+
+        // Faz o console log das credenciais do usuário
+        console.log("Dados de Login:", { username, password });
+    };
+
     return(
         <>
-
         <Container>
-            <Form action="#">
+            <Form onSubmit={handleSubmit}>
                 <Title>Entrar</Title>
                 <InputArea>
                     <Icone icon={faUser} />
-                    <Input type="text" placeholder="Usuário" />
+                    <Input 
+                        type="text" 
+                        placeholder="Usuário" 
+                        required
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                    />
                 </InputArea>
                 <InputArea>
                     <Icone icon={faLock} />
-                    <Input type="password" placeholder="Senha" />
+                    <Input 
+                        type="password" 
+                        placeholder="Senha" 
+                        required
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
                 </InputArea>
 
                 <ButtonContainer>
