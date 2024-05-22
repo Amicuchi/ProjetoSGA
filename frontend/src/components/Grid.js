@@ -27,25 +27,22 @@ export const Th = styled.th`
     text-align: start;
     border-bottom: inset;
     padding: 10px 20px;
-
     width: ${(props) => (props.width ? props.width : "auto")};
 `;
 
 export const Td = styled.td`
     padding-top: 15px;
-    text-align: ${(props) => (props.alignCenter ? "center" : "start")};
+    text-align: "center";
     width: ${(props) => (props.width ? props.width : "auto")}
 `;
 
 const Grid = ({ users, setUsers, setOnEdit }) => {
-
+    
     const handleDelete = async (CPF) => {
-
         await axios
             .delete("http://localhost:8800/" + CPF)
             .then(({data}) => {
                 const newArray = users.filter((user) => user.CPF !== CPF);
-                
                 setUsers(newArray);
                 toast.success(data);
             })
@@ -75,8 +72,8 @@ const Grid = ({ users, setUsers, setOnEdit }) => {
                     <Th width="10%">Bairro</Th>
                     <Th width="10%">Cidade</Th>
                     <Th width="2.5%">UF</Th>
-                    <Th width="1.5%" aligncenter="true"></Th>
-                    <Th width="1.5%" aligncenter="true"></Th>
+                    <Th width="1.5%"></Th>
+                    <Th width="1.5%"></Th>
                 </Tr>
             </Thead>
             <Tbody>
@@ -95,8 +92,8 @@ const Grid = ({ users, setUsers, setOnEdit }) => {
                         <Td>{item.enderecoBairro}</Td>
                         <Td>{item.enderecoCidade}</Td>
                         <Td>{item.enderecoEstado}</Td>
-                        <Td aligncenter="true"> <FontAwesomeIcon icon={faEdit} color="blue" onClick={() => handleEdit(item)}/>  </Td>
-                        <Td aligncenter="true"> <FontAwesomeIcon icon={faTrash} color="red" onClick={() => handleDelete(item.CPF)} /> </Td>
+                        <Td> <FontAwesomeIcon icon={faEdit} color="blue" onClick={() => handleEdit(item)}/>  </Td>
+                        <Td> <FontAwesomeIcon icon={faTrash} color="red" onClick={() => handleDelete(item.CPF)} /> </Td>
                     </Tr>
                 ))}
             </Tbody>

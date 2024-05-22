@@ -215,6 +215,7 @@ const Form = ({ getUsers, onEdit, setOnEdit }) => {
             getUsers();
 
         } catch (error) {
+            // console.log(error);
             toast.error("Erro ao salvar os dados do usuário.");
         }
     };

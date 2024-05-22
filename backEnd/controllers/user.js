@@ -1,11 +1,9 @@
 import { db } from "../db.js";
 
 export const getUsers = (_, res) => {
-	// const q = "SELECT * FROM usuarios";
-	
 	const q = `
 	SELECT u.CPF, u.UsuarioTipo, u.UsuarioNome, u.UsuarioEmail, u.UsuarioTelefone,
-		e.enderecoId, e.enderecoCEP, e.enderecoLogradouro, e.enderecoNomeLogradouro,
+		e.enderecoId, e.usuarioId, e.enderecoCEP, e.enderecoLogradouro, e.enderecoNomeLogradouro,
 		e.enderecoNumero, e.enderecoComplemento, e.enderecoBairro, e.enderecoCidade, e.enderecoEstado
 	FROM usuarios u
 	LEFT JOIN endereco e ON u.CPF = e.usuarioId;
@@ -13,6 +11,7 @@ export const getUsers = (_, res) => {
 
 	db.query(q, (err, data) => {
 		if (err) {
+            console.log(err);
 			return res.status(500).json({ error: 'Erro ao buscar usuários.', details: err });
 		}
 		return res.status(200).json(data);
@@ -21,19 +20,22 @@ export const getUsers = (_, res) => {
 
 export const addUser = (req, res) => {
     const qUsers = "INSERT INTO usuarios (`CPF`, `UsuarioTipo`, `UsuarioNome`, `UsuarioEmail`, `UsuarioTelefone`) VALUES (?, ?, ?, ?, ?)";
-    const qEndereco = "INSERT INTO endereco (`enderecoId`, `enderecoCEP`, `enderecoLogradouro`, `enderecoNomeLogradouro`, `enderecoNumero`, `enderecoComplemento`, `enderecoBairro`, `enderecoCidade`, `enderecoEstado`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
+    const qEndereco = "INSERT INTO endereco (`enderecoId`, `usuarioId`, `enderecoCEP`, `enderecoLogradouro`, `enderecoNomeLogradouro`, `enderecoNumero`, `enderecoComplemento`, `enderecoBairro`, `enderecoCidade`, `enderecoEstado`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    
     const { CPF, UsuarioTipo, UsuarioNome, UsuarioEmail, UsuarioTelefone, enderecoId, enderecoCEP, enderecoLogradouro, enderecoNomeLogradouro, enderecoNumero, enderecoComplemento, enderecoBairro, enderecoCidade, enderecoEstado } = req.body;
 
     const userValues = [CPF, UsuarioTipo, UsuarioNome, UsuarioEmail, UsuarioTelefone];
-    const enderecoValues = [enderecoId, enderecoCEP, enderecoLogradouro, enderecoNomeLogradouro, enderecoNumero, enderecoComplemento, enderecoBairro, enderecoCidade, enderecoEstado];
+    const enderecoValues = [enderecoId, CPF, enderecoCEP, enderecoLogradouro, enderecoNomeLogradouro, enderecoNumero, enderecoComplemento, enderecoBairro, enderecoCidade, enderecoEstado];
 
     db.query(qUsers, userValues, (err) => {
         if (err) {
+            console.log("Deu ruim na linha 32");
             return res.status(500).json({ error: 'Erro ao adicionar usuário.', details: err });
         }
+        
         db.query(qEndereco, enderecoValues, (err) => {
             if (err) {
+                console.log("Deu ruim na linha 38");
                 return res.status(500).json({ error: 'Erro ao adicionar endereço.', details: err });
             }
             return res.status(200).json({ message: 'Usuário adicionado com sucesso.' });
@@ -41,22 +43,23 @@ export const addUser = (req, res) => {
     });
 };
 
-
 export const updateUser = (req, res) => {
-    const qUsers = "UPDATE usuarios SET `CPF` = ?, `UsuarioTipo` = ?, `UsuarioNome` = ?, `UsuarioEmail` = ?, `UsuarioTelefone` = ? WHERE `CPF` = ?";
-    const qEndereco = "UPDATE endereco SET `enderecoId` = ?, `enderecoCEP` = ?, `enderecoLogradouro` = ?, `enderecoNomeLogradouro` = ?, `enderecoNumero` = ?, `enderecoComplemento` = ?, `enderecoBairro` = ?, `enderecoCidade` = ?, `enderecoEstado` = ? WHERE `CPF` = ?";
+    const qUsers = "UPDATE usuarios SET `UsuarioTipo` = ?, `UsuarioNome` = ?, `UsuarioEmail` = ?, `UsuarioTelefone` = ? WHERE `CPF` = ?";
+    const qEndereco = "UPDATE endereco SET `enderecoId` = ?, `enderecoCEP` = ?, `enderecoLogradouro` = ?, `enderecoNomeLogradouro` = ?, `enderecoNumero` = ?, `enderecoComplemento` = ?, `enderecoBairro` = ?, `enderecoCidade` = ?, `enderecoEstado` = ? WHERE `usuarioId` = ?";
 
     const { CPF, UsuarioTipo, UsuarioNome, UsuarioEmail, UsuarioTelefone, enderecoId, enderecoCEP, enderecoLogradouro, enderecoNomeLogradouro, enderecoNumero, enderecoComplemento, enderecoBairro, enderecoCidade, enderecoEstado } = req.body;
 
     const userValues = [CPF, UsuarioTipo, UsuarioNome, UsuarioEmail, UsuarioTelefone];
-    const enderecoValues = [enderecoId, enderecoCEP, enderecoLogradouro, enderecoNomeLogradouro, enderecoNumero, enderecoComplemento, enderecoBairro, enderecoCidade, enderecoEstado, CPF];
-
+    const enderecoValues = [enderecoId, usuarioId, enderecoCEP, enderecoLogradouro, enderecoNomeLogradouro, enderecoNumero, enderecoComplemento, enderecoBairro, enderecoCidade, enderecoEstado];
+    
     db.query(qUsers, userValues, (err) => {
         if (err) {
+            console.log("Deu ruim na linha 57");
             return res.status(500).json({ error: 'Erro ao atualizar usuário.', details: err });
         }
         db.query(qEndereco, enderecoValues, (err) => {
             if (err) {
+                console.log("Deu ruim na linha 62");
                 return res.status(500).json({ error: 'Erro ao atualizar endereço.', details: err });
             }
             return res.status(200).json({ message: 'Usuário atualizado com sucesso.' });

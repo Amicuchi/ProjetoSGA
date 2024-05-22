@@ -4,6 +4,7 @@ import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 
 const Container = styled.div`
+    width: 750px;
     display: grid;
     grid-template-areas: 
         "Login Login"
